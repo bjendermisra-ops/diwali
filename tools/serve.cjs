@@ -1,0 +1,4 @@
+// Local development only. Production is a plain static folder.
+const http=require('http'),fs=require('fs'),path=require('path');
+const args=process.argv.slice(2),port=Number(args[args.indexOf('--port')+1])||3000,root=process.cwd();
+http.createServer((req,res)=>{let p;try{p=decodeURIComponent(new URL(req.url,'http://localhost').pathname)}catch{return res.writeHead(400).end()}const f=path.resolve(root,'.'+(p==='/'?'/index.html':p));if(!f.startsWith(root+path.sep))return res.writeHead(403).end();fs.readFile(f,(e,b)=>{if(e)return res.writeHead(404).end('Not found');res.setHeader('Content-Type',({'.html':'text/html','.json':'application/json','.js':'text/javascript','.glb':'model/gltf-binary','.ogg':'audio/ogg','.png':'image/png'})[path.extname(f)]||'text/plain');res.end(b)})}).listen(port,'0.0.0.0',()=>console.log('Preview listening on '+port));

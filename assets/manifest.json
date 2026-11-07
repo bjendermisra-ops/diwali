@@ -1,0 +1,9 @@
+{
+  "avatars": [
+    {"id":"amber","name":"Saffron celebration","file":"assets/models/amber-kurta.glb","color":"#f39a43"},
+    {"id":"peacock","name":"Peacock evening","file":"assets/models/peacock-kurta.glb","color":"#3fb7ac"},
+    {"id":"rose","name":"Rose festive","file":"assets/models/rose-lehenga.glb","color":"#ec638c"},
+    {"id":"indigo","name":"Indigo starlight","file":"assets/models/indigo-lehenga.glb","color":"#9580ec"}
+  ],
+  "sounds": {"rocket":"assets/audio/rocket.ogg","boom":"assets/audio/boom.ogg","chakri":"assets/audio/chakri.ogg","anar":"assets/audio/anar.ogg","phuljhadi":"assets/audio/phuljhadi.ogg","ladi":"assets/audio/ladi.ogg","flower":"assets/audio/flower.ogg"}
+}

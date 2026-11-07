@@ -1,0 +1,20 @@
+{
+  "name": "diwali-together",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Single-file multiplayer Diwali celebration",
+  "scripts": {
+    "dev": "node tools/serve.cjs",
+    "check": "node tests/static-check.cjs",
+    "test:rules": "firebase emulators:exec --config firebase.local.json --project demo-diwali --only database,firestore \"node --test tests/rules.test.cjs\"",
+    "test:scene": "node tests/scene-check.cjs"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "3.0.4",
+    "@napi-rs/canvas": "0.1.80",
+    "babylonjs": "7.54.3",
+    "babylonjs-loaders": "7.54.3",
+    "firebase": "10.14.1",
+    "firebase-tools": "13.35.1"
+  }
+}
