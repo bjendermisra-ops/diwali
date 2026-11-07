@@ -5,15 +5,19 @@ A mobile-first, browser-based Diwali neighbourhood for friends. **All applicatio
 ## What's included
 
 - Google and anonymous Firebase login; mandatory display name, optional self-described gender and independently chosen avatar.
-- Four original festive GLB avatars: saffron/peacock kurtas and rose/indigo lehengas. Named character labels and walking limb animation.
+- Four original festive GLB avatars: saffron/peacock kurtas and rose/indigo lehengas. Named character labels and 13 articulated transform joints: hips, spine, neck, shoulders, elbows, hips/legs, knees and feet. Slow walk/run blend, smooth turn and brief planting pose. These are stylized procedural characters, not motion-captured photorealistic humans.
 - Decorated 3D neighbourhood with havelis, balconies, marigolds, string lights, diyas, rangoli, stalls and a gateway.
 - Up to eight player records per invite-code room, movement interpolation, disconnect cleanup and reconnection.
 - Shared pickup transactions and local inventory; six firework types: rocket, chakri, anar, phuljhadi, ladi and aerial flower burst.
-- Seeded shared effect events; bounded particle pool, flash lighting and positional sound. Seven original **synthesized**, layered audio assets, not field recordings.
+- Seeded shared effect events; visible bottles/rockets, cones, chakri discs, sparkler wires and ladi models. Rockets show a 0.65-second fuse phase, rise visibly and burst at event age 3.0 seconds. Ring, chrysanthemum and willow-like patterns, fading trails, pooled smoke, flash lighting and positional sound. Seven original **synthesized**, layered audio assets, not field recordings.
 - Room chat, recipient-protected direct messages, a local mute list, length limits and rule-enforced message cooldowns.
-- Touch joystick, drag camera, desktop keyboard controls, graphics/volume settings, fullscreen and solo exploration.
+- Touch joystick, Walk/Run toggle, desktop Shift to run, upward/downward free-look, a Sky button and automatic tracking of your own rocket. Two additional areas: Lantern Garden and Festival Square, with collision-aware paths, pool, trees, benches, pavilion and sweet stalls. Graphics/volume settings, fullscreen and solo exploration remain available.
 
 ## Phone setup — required before online play
+
+### Upgrading from the first version
+
+**Publish the updated `database.rules.json` again before using the expanded map.** Coordinates now allow x ±18 and z ±40; old rules will reject positions/events outside the original street. Firestore profile rules are unchanged. Refresh/reload all players so models and gameplay use the same version.
 
 ### 1. Publish the website
 
@@ -59,14 +63,14 @@ Profiles are stored at `profiles/{uid}`. Users can only access their own profile
 ## Controls
 
 - Phone: left joystick moves; drag the scene to look; approach a stall and tap Pick up; tap an inventory item, then the round action button.
-- Desktop: WASD/arrows move, drag to look, E picks up, Space uses selected firework, 1–6 selects, wheel adjusts camera distance.
+- Desktop: WASD/arrows walk; hold Shift to run. Drag upward to look at the sky, V toggles sky view, E picks up, Space uses selected firework, 1–6 selects, wheel adjusts camera distance. On mobile, choose Walk or Run and use joystick distance for speed. Moving/dragging cancels automatic rocket tracking.
 - Chat keyboard focus stops keyboard movement. Escape closes panels.
 
 ## Asset replacement
 
 Edit [`assets/manifest.json`](assets/manifest.json). Put your licensed GLB files in `assets/models/` and sound files in `assets/audio/`, then update the file paths. Keep the avatar IDs (`amber`, `peacock`, `rose`, `indigo`) unless you also update the profile and database rules.
 
-Included GLBs face +Z in glTF space, measure about 2.1 units tall, and have transform nodes `ArmL`, `ArmR`, `LegL`, `LegR` for the procedural walking animation. Arbitrary replacement rigs need animation mapping and scale/orientation adjustments; they are not automatically interchangeable. Models have PBR materials. Animation and rendering use Babylon.js.
+Included GLBs face +Z in glTF space, measure about 2.1 units tall, and have transform nodes `ArmL/R`, `ElbowL/R`, `LegL/R`, `KneeL/R`, `FootL/R`, `Hips`, `Spine`, `Neck` for the procedural animation. Arbitrary replacement rigs need animation mapping and scale/orientation adjustments; they are not automatically interchangeable. Models have PBR materials. Animation and rendering use Babylon.js.
 
 The original model/audio source generator is [`tools/build_assets.py`](tools/build_assets.py). Run from the repository root with Python 3 and ffmpeg. No paid/licensed third-party character artwork is bundled.
 

@@ -13,11 +13,11 @@ room={'meta':{'.read':'auth != null','.write':"auth != null && !data.exists() &&
 exists="root.child('rooms').child($room).child('meta').exists()"
 owner="root.child('rooms').child($room).child('players').child($slot).child('uid').val() === auth.uid"
 member='('+' || '.join("root.child('rooms').child($room).child('players').child('%s').child('uid').val() === auth.uid"%i for i in range(8))+')'
-player=obj(['uid','session','name','gender','avatar','x','z','yaw','at'],{'uid':{'.validate':'newData.val() === auth.uid'},'session':string(64),'name':string(24),'gender':enum(['woman','man','nonbinary','unspecified']),'avatar':enum(['amber','peacock','rose','indigo']),'x':num(-7.5,7.5),'z':num(-21,21),'yaw':num(-3.2,3.2),'at':stamp},"$slot.matches(/^[0-7]$/)")
+player=obj(['uid','session','name','gender','avatar','x','z','yaw','at'],{'uid':{'.validate':'newData.val() === auth.uid'},'session':string(64),'name':string(24),'gender':enum(['woman','man','nonbinary','unspecified']),'avatar':enum(['amber','peacock','rose','indigo']),'x':num(-18,18),'z':num(-40,40),'yaw':num(-3.2,3.2),'at':stamp},"$slot.matches(/^[0-7]$/)")
 player['.write']="auth != null && "+exists+" && ((!newData.exists() && data.child('uid').val() === auth.uid) || (newData.exists() && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid || data.child('at').val() < now - 30000)))"
 room['players']={'.read':'auth != null && '+exists,'$slot':player}
 base={'id':string(64),'uid':{'.validate':'newData.val() === auth.uid'},'at':stamp}
-event=obj(['id','uid','at','type','x','z','seed'],{**base,'type':enum(['rocket','chakri','anar','phuljhadi','ladi','flower']),'x':num(-7,7),'z':num(-21,21),'seed':num(0,4294967295)})
+event=obj(['id','uid','at','type','x','z','seed'],{**base,'type':enum(['rocket','chakri','anar','phuljhadi','ladi','flower']),'x':num(-18,18),'z':num(-40,40),'seed':num(0,4294967295)})
 event['.write']='auth != null && '+owner+" && newData.exists() && (!data.exists() || data.child('at').val() <= now - 900)"
 room['events']={'.read':'auth != null && '+member,'$slot':event}
 chat=obj(['id','uid','at','name','text'],{**base,'name':string(24),'text':string(240)},"newData.child('name').val() === root.child('rooms').child($room).child('players').child($slot).child('name').val()")

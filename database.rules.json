@@ -41,10 +41,10 @@
               ".validate": "newData.isString() && (newData.val() === \"amber\" || newData.val() === \"peacock\" || newData.val() === \"rose\" || newData.val() === \"indigo\")"
             },
             "x": {
-              ".validate": "newData.isNumber() && newData.val() >= -7.5 && newData.val() <= 7.5"
+              ".validate": "newData.isNumber() && newData.val() >= -18 && newData.val() <= 18"
             },
             "z": {
-              ".validate": "newData.isNumber() && newData.val() >= -21 && newData.val() <= 21"
+              ".validate": "newData.isNumber() && newData.val() >= -40 && newData.val() <= 40"
             },
             "yaw": {
               ".validate": "newData.isNumber() && newData.val() >= -3.2 && newData.val() <= 3.2"
@@ -75,10 +75,10 @@
               ".validate": "newData.isString() && (newData.val() === \"rocket\" || newData.val() === \"chakri\" || newData.val() === \"anar\" || newData.val() === \"phuljhadi\" || newData.val() === \"ladi\" || newData.val() === \"flower\")"
             },
             "x": {
-              ".validate": "newData.isNumber() && newData.val() >= -7 && newData.val() <= 7"
+              ".validate": "newData.isNumber() && newData.val() >= -18 && newData.val() <= 18"
             },
             "z": {
-              ".validate": "newData.isNumber() && newData.val() >= -21 && newData.val() <= 21"
+              ".validate": "newData.isNumber() && newData.val() >= -40 && newData.val() <= 40"
             },
             "seed": {
               ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 4294967295"

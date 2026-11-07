@@ -57,14 +57,32 @@ def avatar(filename, outfit, longhair=False):
         node('Eye',(s*.086,1.79,.210),(.029,.037,.012),'sphere','dark',root)
         node('EyeLight',(s*.08,1.805,.222),(.009,.012,.005),'sphere','white',root)
         arm=node('ArmL' if s<0 else 'ArmR',(s*.33,1.37,0),parent=root)
-        node('Sleeve',(0,-.16,0),(.10,.21,.11),'cylinder','cloth',arm)
-        node('Cuff',(0,-.34,0),(.085,.025,.09),'cylinder','gold',arm)
-        node('Hand',(0,-.43,0),(.077,.11,.076),'sphere','skin',arm)
+        node('Sleeve',(0,-.105,0),(.10,.12,.11),'cylinder','cloth',arm)
+        elbow=node('ElbowL' if s<0 else 'ElbowR',(0,-.23,0),parent=arm)
+        node('Forearm',(0,-.10,0),(.075,.115,.08),'cylinder','cloth',elbow)
+        node('Cuff',(0,-.20,0),(.079,.023,.085),'cylinder','gold',elbow)
+        node('Hand',(0,-.27,0),(.073,.09,.073),'sphere','skin',elbow)
         leg=node('LegL' if s<0 else 'LegR',(s*.13,.67,0),parent=root)
-        node('Trouser',(0,-.24,0),(.095,.27,.10),'cylinder','white',leg)
-        node('Jutti',(0,-.59,.055),(.10,.075,.17),'sphere','shoe',leg)
+        node('Thigh',(0,-.13,0),(.095,.145,.10),'cylinder','white',leg)
+        knee=node('KneeL' if s<0 else 'KneeR',(0,-.27,0),parent=leg)
+        node('Shin',(0,-.13,0),(.082,.145,.09),'cylinder','white',knee)
+        foot=node('FootL' if s<0 else 'FootR',(0,-.27,0),parent=knee)
+        node('Jutti',(0,-.04,.055),(.10,.075,.17),'sphere','shoe',foot)
     node('Nose',(0,1.73,.215),(.035,.043,.05),'sphere','skin',root)
     node('Smile',(0,1.63,.196),(.065,.014,.018),'sphere','rose',root)
+    # Anatomical pivots. Reparent existing nodes while preserving their rest positions.
+    children=list(nodes[root]['children'])
+    hips=node('Hips',(0,.67,0),parent=root)
+    spine=node('Spine',(0,.45,0),parent=hips)
+    neck=node('Neck',(0,.40,0),parent=spine)
+    face_names={'Head','Hair','Braid','Bindi','Ear','Earring','EyeWhite','Eye','EyeLight','Nose','Smile'}
+    for child in children:
+        nodes[root]['children'].remove(child)
+        name=nodes[child]['name']
+        parent=hips if name.startswith('Leg') else neck if name in face_names else spine
+        base=.67 if parent==hips else 1.52 if parent==neck else 1.12
+        nodes[child]['translation'][1]-=base
+        nodes[parent].setdefault('children',[]).append(child)
     doc={'asset':{'version':'2.0','generator':'Diwali Together original festive models'},'scene':0,'scenes':[{'nodes':[root]}],'nodes':nodes,'meshes':meshes,'materials':materials,'accessors':access,'bufferViews':views,'buffers':[{'byteLength':len(blob)}]}
     js=json.dumps(doc,separators=(',',':')).encode(); js+=b' '*((-len(js))%4);blob+=b'\0'*((-len(blob))%4)
     out=struct.pack('<III',0x46546c67,2,12+8+len(js)+8+len(blob))+struct.pack('<II',len(js),0x4e4f534a)+js+struct.pack('<II',len(blob),0x004e4942)+blob

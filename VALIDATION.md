@@ -16,3 +16,18 @@
 - Live Google login, guest profile creation, two-device room sync, reconnect, pickup races and private chat must be acceptance-tested after the Firebase rules and hosting domain are configured, following README.md.
 
 Do not describe this version as production-certified, cheat-proof, perfectly synchronized or tested on all Android phones.
+
+## Movement and fireworks update — 7 November 2026
+
+Passed `npm run check` and expanded `npm run test:scene`:
+
+- All four regenerated GLBs load with 13 animated transform joints. Tests check actual foot displacement in world space, bent knees and elbows, avoiding the prior quaternion/Euler conflict.
+- The real frame loop runs in solo mode: run displacement exceeds slow-walk displacement by more than 2.5×.
+- Camera math looks nearly straight up and also down.
+- Running is blocked by the street buildings; the expanded plaza is reachable.
+- A visible rocket shell rises before the burst, has not exploded at 2.9 seconds, and switches to burst at 3.01 seconds. Its prop cleans up after its lifetime.
+- Static scenery batches to 57 meshes before dynamic characters, props and particles.
+
+Browser rendering was attempted again; the cloud Chrome instance still reports WebGL unavailable. No claim is made that actual GPU visuals, Android FPS, perceived audio realism or two-device production Firebase sync were verified. Firebase emulator tests were not retried after the earlier automatic approval rejection.
+
+Expanded-world RTDB rules must be published by the Firebase project administrator. No live Firebase settings were changed.
